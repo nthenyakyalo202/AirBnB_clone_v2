@@ -1,4 +1,6 @@
-mport cmd
+#!/usr/bin/python3
+"""Define the HBNBCommand class."""
+import cmd
 from models.base_model import BaseModel
 from models import storage
 from shlex import split
@@ -75,12 +77,14 @@ class HBNBCommand(cmd.Cmd):
         Create a new instance of the indicated class and:
             - Saves it (to the JSON file)
             - Prints the id
+
         Errors:
         =======
         ```
         (hbnb) create
         ** class name missing **
         ```
+
         ```
         (hbnb) create MyModel
         ** class doesn't exist **
@@ -104,20 +108,24 @@ class HBNBCommand(cmd.Cmd):
         """Usage --> show <class> <id>
         Prints the string representation of an instance
         based on the class name and id
+
         Errors:
         =======
         ```
         (hbnb) show
         ** class name missing **
         ```
+
         ```
         (hbnb) show MyModel 1234-1234
         ** class doesn't exist **
         ```
+
         ```
         (hbnb) show BaseModel
         ** instance id missing **
         ```
+
         ```
         (hbnb) show BaseModel 12341234
         ** no instance found **
@@ -144,20 +152,24 @@ class HBNBCommand(cmd.Cmd):
         """Usage --> destroy <class> <id>
         Deletes an instance based on the class name and id,
         also update the JSON file.
+
         Errors:
         =======
         ```
         (hbnb) destroy
         ** class name missing **
         ```
+
         ```
         (hbnb) destroy MyModel 1234-1234
         ** class doesn't exist **
         ```
+
         ```
         (hbnb) destroy BaseModel
         ** instance id missing **
         ```
+
         ```
         (hbnb) destroy BaseModel 12341234
         ** no instance found **
@@ -186,6 +198,7 @@ class HBNBCommand(cmd.Cmd):
         Prints all string representation of all instances
         based or not on the class name.
         Note: <class> is optional.
+
         Errors:
         =======
         ```
@@ -211,28 +224,34 @@ class HBNBCommand(cmd.Cmd):
         """Usage --> update <class name> <id> <attribute name> "<attribute value>"
         Updates an instance based on the class name and id by adding
         or updating attribute also update the JSON file.
+
         Errors:
         =======
         ```
         (hbnb) update
         ** class name missing **
         ```
+
         ```
         (hbnb) update MyModel 1234-1234
         ** class doesn't exist **
         ```
+
         ```
         (hbnb) update BaseModel
         ** instance id missing **
         ```
+
         ```
         (hbnb) update BaseModel 12341234
         ** no instance found **
         ```
+
         ```
         (hbnb) update BaseModel existing-id
         ** attribute name missing **
         ```
+
         ```
         (hbnb) update BaseModel existing-id first_name
         ** value missing **
@@ -266,6 +285,7 @@ class HBNBCommand(cmd.Cmd):
     def do_count(self, arg):
         """Usage -> <class name>.count()
         Retrieve the number of instances of a class.
+
         Errors:
         =======
         ```
@@ -329,6 +349,7 @@ class HBNBCommand(cmd.Cmd):
         """ Usage -> <class name>.action()
         Command interpreter retrieve all instances of class by using:
         '<class name>.all()'
+
         Errors:
         =======
         ```
