@@ -1,92 +1,76 @@
 #!/usr/bin/python3
-""" """
-from tests.test_models.test_base_model import test_basemodel
+"""
+Define unittests for Place class (models/place.py)
+"""
+import unittest
+from models.base_model import BaseModel
 from models.place import Place
+from models import storage
+import datetime
+from time import sleep
 import os
 
 
-class test_Place(test_basemodel):
-    """ place tests class"""
+class TestPlace(unittest.TestCase):
+    """Test instantiation of Place class."""
 
-    def __init__(self, *args, **kwargs):
-        """ init test class"""
-        super().__init__(*args, **kwargs)
-        self.name = "Place"
-        self.value = Place
+    # Testing type
+    def test_type(self):
+        p = Place()
+        self.assertEqual(Place, type(p))
 
-    def test_city_id(self):
-        """ testing place city_id attr"""
-        new = self.value()
-        self.assertEqual(type(new.city_id), str if
-                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
-                         type(None))
+    def test_type_public_attr(self):
+        p = Place()
+        self.assertEqual(str, type(p.id))
+        self.assertEqual(str, type(p.city_id))
+        self.assertEqual(str, type(p.user_id))
+        self.assertEqual(str, type(p.name))
+        self.assertEqual(str, type(p.description))
+        self.assertEqual(int, type(p.number_rooms))
+        self.assertEqual(int, type(p.number_bathrooms))
+        self.assertEqual(int, type(p.max_guest))
+        self.assertEqual(int, type(p.price_by_night))
+        self.assertEqual(float, type(p.latitude))
+        self.assertEqual(float, type(p.longitude))
+        self.assertEqual(list, type(p.amenity_ids))
 
-    def test_user_id(self):
-        """ testing place user_id attr"""
-        new = self.value()
-        self.assertEqual(type(new.user_id), str if
-                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
-                         type(None))
+    def test_type_created_at(self):
+        p = Place()
+        self.assertEqual(datetime.datetime, type(p.created_at))
 
-    def test_name(self):
-        """ testing place name attr"""
-        new = self.value()
-        self.assertEqual(type(new.name), str if
-                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
-                         type(None))
+    def test_type_update_at(self):
+        p = Place()
+        self.assertEqual(datetime.datetime, type(p.updated_at))
 
-    def test_description(self):
-        """testing place description attr"""
-        new = self.value()
-        self.assertEqual(type(new.description), str if
-                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
-                         type(None))
+    # Testing id
+    def test_unique_id(self):
+        p1 = Place()
+        p2 = Place()
+        self.assertNotEqual(p1.id, p2.id)
 
-    def test_number_rooms(self):
-        """ testing place number of rooms attr"""
-        new = self.value()
-        self.assertEqual(type(new.number_rooms), int if
-                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
-                         type(None))
+    # Testing dates
+    def test_consecutive_created_at(self):
+        p1 = Place()
+        sleep(0.02)
+        p2 = Place()
+        self.assertLess(p1.created_at, p2.created_at)
 
-    def test_number_bathrooms(self):
-        """ testing place number of bathrooms attr"""
-        new = self.value()
-        self.assertEqual(type(new.number_bathrooms), int if
-                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
-                         type(None))
+    def test_consecutive_updated_at(self):
+        p1 = Place()
+        sleep(0.02)
+        p2 = Place()
+        self.assertLess(p1.updated_at, p2.updated_at)
 
-    def test_max_guest(self):
-        """ testing place max_guest attr"""
-        new = self.value()
-        self.assertEqual(type(new.max_guest), int if
-                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
-                         type(None))
+    # Testing new attributes creation
+    def test_new_attr(self):
+        p = Place()
+        p.name = "Holberton"
+        p.email = "ejemplo@gato.com"
+        self.assertTrue(hasattr(p, "name") and hasattr(p, "email"))
 
-    def test_price_by_night(self):
-        """ testing place price by night attr"""
-        new = self.value()
-        self.assertEqual(type(new.price_by_night), int if
-                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
-                         type(None))
-
-    def test_latitude(self):
-        """ testing place latitud attr"""
-        new = self.value()
-        self.assertEqual(type(new.latitude), float if
-                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
-                         type(None))
-
-    def test_longitude(self):
-        """ testing place longitude attr"""
-        new = self.value()
-        self.assertEqual(type(new.latitude), float if
-                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
-                         type(None))
-
-    def test_amenity_ids(self):
-        """ testing amenity ids"""
-        new = self.value()
-        self.assertEqual(type(new.amenity_ids), list if
-                         os.getenv('HBNB_TYPE_STORAGE') != 'db' else
-                         type(None))
+    # Test update storage variable
+    def test_bm_updated_storage(self):
+        p = Place()
+        p_key = "Place." + p.id
+        keys = storage.all().keys()
+        self.assertTrue(p_key in keys)
