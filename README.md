@@ -46,7 +46,7 @@ This repository contains the initial stage of a student project to build a clone
 
     * update - Updates existing attributes an object based on class name and UUID
 
-    * quit - Exits the program (EOF will as well)
+    * quit - Exits the program (EOF will as wel)
 
 
 ##### Alternative Syntax
@@ -139,4 +139,4 @@ Usage: <class_name>.update(<_id>, <dictionary>)
 (hbnb) User.all()
 (hbnb) ["[User] (98bea5de-9cb0-4d78-8a9d-c4de03521c30) {'updated_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134362), 'name': 'Fred the Frog', 'age': 9, 'id': '98bea5de-9cb0-4d78-8a9d-c4de03521c30', 'created_at': datetime.datetime(2020, 2, 19, 21, 47, 29, 134343)}"]
 ```
-<br>
+<br>.
